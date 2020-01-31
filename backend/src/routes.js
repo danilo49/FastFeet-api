@@ -7,17 +7,20 @@ import SessionController from './app/controllers/SessionController';
 import RecipientController from './app/controllers/RecipientController';
 
 import authMiddleware from './app/middlewares/auth';
+import authAdmin from './app/middlewares/authAdmin';
 
 const routes = new Router();
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
-routes.put('/recipients/:id', RecipientController.update);
 
 routes.use(authMiddleware); // Middleware GLOBAL as rotas abaixo desta linha passaram pelo middleware
 // routes.put('/users', authMiddleware, UserController.update); Middleware LOCAL
 routes.put('/users', UserController.update);
+
+routes.use(authAdmin);
 routes.post('/recipients', RecipientController.store);
+routes.put('/recipients/:id', RecipientController.update);
 
 // vantagens do postgress comparado ao mysql
 // UUid geracao do id, geolocalizacao, opensource
