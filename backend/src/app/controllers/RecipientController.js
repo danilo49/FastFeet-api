@@ -60,6 +60,8 @@ class RecipientController {
   }
 
   async update(req, res) {
+    const { id } = req.params;
+
     const schema = Yup.object().shape({
       // formart the req.body
       name: Yup.string().required(),
@@ -71,33 +73,14 @@ class RecipientController {
       zipcode: Yup.number().required(),
     });
 
-    if (!(await schema.isValid(req.body))) {
+    const recipient = await Recipient.findOne({
+      where: { id },
+    });
+
+    if (!(await schema.isValid(req.body && recipient))) {
       return res.status(400).json({ error: 'Validation fails' });
     }
-
-    // Recipient update
-    // console.log(reqIuserId);
-    // const { email, oldPassword } = req.body;
-
-    const recipient = await Recipient.findByPk(req.userId);
-    /*
-    if (email && email !== recipient.email) {
-      const userExists = await Recipient.findOne({
-        where: { email },
-      }); // check if there is already an equal email in the database before updating the user
-
-      if (userExists) {
-        return res.status(400).json({ error: 'User already exists.' });
-      }
-    }
-
-    if (oldPassword && !(await recipient.checkPassword(oldPassword))) {
-      // Just make sure that the old password corresponds to a record in the database, if he enters the password, otherwise it will not enter the case, as there is no more old password
-      return res.status(401).json({ error: 'Password does not match' });
-    }
-    */
     const {
-      id,
       name,
       street,
       number,
@@ -119,5 +102,4 @@ class RecipientController {
     });
   }
 }
-
 export default new RecipientController();

@@ -12,7 +12,7 @@ const routes = new Router();
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
-routes.put('/recipients', RecipientController.update);
+routes.put('/recipients/:id', RecipientController.update);
 
 routes.use(authMiddleware); // Middleware GLOBAL as rotas abaixo desta linha passaram pelo middleware
 // routes.put('/users', authMiddleware, UserController.update); Middleware LOCAL
