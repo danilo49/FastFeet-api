@@ -19,11 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      complement: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      state: {
+      neighborhood: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -34,6 +30,14 @@ module.exports = {
       zipcode: {
         type: Sequelize.INTEGER,
         allowNull: false,
+      },
+      state: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      complement: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       created_at: {
         // valores que sequelize preenche automatico no Sequelize

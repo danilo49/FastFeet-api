@@ -18,7 +18,7 @@ export default async (req, res, next) => {
     const decoded = await promisify(jwt.verify)(token, authConfig.secret);
     // The jwt id is inside the decoded now
 
-    console.log(decoded); // { id: 5, iat: 1580316464, exp: 1580921264 } exp = expiration format unix
+    // console.log(decoded); // { id: 5, iat: 1580316464, exp: 1580921264 } exp = expiration format unix
 
     req.userId = decoded.id;
 
