@@ -23,7 +23,7 @@ export default async (req, res, next) => {
 
     const { id } = decoded;
     const userExists = await User.findByPk(id); // check if there is already an equal email in the database before updating the user
-
+    req.userId = decoded.id;
     if (userExists.admin === false) {
       return res.status(401).json({ error: 'Token invalid' });
     }

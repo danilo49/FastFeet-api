@@ -2,10 +2,12 @@ import Sequelize from 'sequelize';
 
 import User from '../app/models/User';
 import Recipient from '../app/models/Recipient';
+import File from '../app/models/File';
+import Deliveryman from '../app/models/Deliveryman';
 
 import databaseConfig from '../config/database';
 
-const models = [User, Recipient];
+const models = [User, Recipient, File, Deliveryman];
 
 class Database {
   constructor() {
@@ -13,9 +15,11 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(databaseConfig); // conexão com a base de dados é feita por aqui
+    this.connection = new Sequelize(databaseConfig); // connection to the database is made here
 
-    models.map(model => model.init(this.connection)); // carregando os usuarios do banco para a aplicacao
+    models
+      .map(model => model.init(this.connection)) // loading bank users into the application
+      .map(model => model.associate && model.associate(this.connection.models)); // loading bank files for application
   }
 }
 
