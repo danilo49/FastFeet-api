@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="FastFeet API" src="https://res.cloudinary.com/danilopereira/image/upload/v1580867307/FastFeet/fastfeetlogo_yo23ja.png" />
+    <img alt="FastFeet API" src="https://res.cloudinary.com/danilopereira/image/upload/v1580869099/FastFeet/fastfeet.png" />
     <br>
     FastFeet API
 </h1>
