@@ -2,6 +2,11 @@ import * as Yup from 'yup'; // validating input data
 import User from '../models/User';
 
 class UserController {
+  async index(req, res) {
+    const users = await User.findAll();
+    return res.json(users);
+  }
+
   async store(req, res) {
     // validating input data
     const schema = Yup.object().shape({
