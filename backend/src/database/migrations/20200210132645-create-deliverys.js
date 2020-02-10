@@ -17,7 +17,7 @@ module.exports = {
         onDelete: 'NO ACTION',
         allowNull: false,
       },
-      delivery_id: {
+      deliveryman_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'deliverymen',

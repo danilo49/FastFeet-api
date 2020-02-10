@@ -22,16 +22,14 @@ module.exports = {
       },
       admin: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false, // todo usuario vai ser um cliente e nao um fornecedor
+        defaultValue: false,
         allowNull: false,
       },
       created_at: {
-        // valores que sequelize preenche automatico no Sequelize
         type: Sequelize.DATE,
         allowNull: false,
       },
       updated_at: {
-        // valores que sequelize preenche automatico no Sequelize
         type: Sequelize.DATE,
         allowNull: false,
       },
