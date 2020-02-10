@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
-import { format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 import Delivery from '../models/Delivery';
 import Deliveryman from '../models/Deliveryman';
 import Recipient from '../models/Recipient';
 
-import Mail from '../../lib/Mail';
+import OrderAvailableMail from '../jobs/OrderAvailableMail';
+
+import Queue from '../../lib/Queue';
 
 class DeliveryController {
   async index(req, res) {
@@ -57,17 +57,9 @@ class DeliveryController {
       end_date,
     } = await Delivery.create(req.body);
 
-    await Mail.sendMail({
-      to: `${deliverymanExists.name} <> ${deliverymanExists.email}`,
-      subject: 'Nova encomenda disponível para retirada',
-      template: 'order',
-      context: {
-        deliveryman: deliverymanExists.name,
-        product,
-        date: format(new Date(), "'dia' dd 'de' MMMM', às' H:mm'h", {
-          locale: pt,
-        }),
-      },
+    await Queue.add(OrderAvailableMail.key, {
+      deliverymanExists,
+      product,
     });
 
     return res.json({
