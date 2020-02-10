@@ -3,8 +3,8 @@ export default {
   post: 2525,
   secure: false,
   auth: {
-    user: 'bcb28ad25c80e8',
-    pass: 'ad44df27ebb6ec',
+    user: '4c2c9693ce2754',
+    pass: '50695ff48907a0',
   },
   default: {
     from: 'Equipe FastFeet <admin@fastfeet.com>',
