@@ -8,8 +8,8 @@ class OrderAvailableMail {
   }
 
   async handle({ data }) {
-    const { deliverymanExists, product } = data;
-    console.log(`${deliverymanExists.name} produto ${product}`);
+    const { deliverymanExists, recipientExists, product } = data;
+    // console.log(`${deliveryman.name} produto ${product}`);
 
     await Mail.sendMail({
       to: `${deliverymanExists.name} <${deliverymanExists.email}>`,
@@ -17,6 +17,14 @@ class OrderAvailableMail {
       template: 'order',
       context: {
         deliveryman: deliverymanExists.name,
+        recipient: recipientExists.name,
+        street: recipientExists.street,
+        number: recipientExists.number,
+        complement: recipientExists.complement,
+        neighborhood: recipientExists.neighborhood,
+        zipcode: recipientExists.zipcode,
+        city: recipientExists.city,
+        state: recipientExists.state,
         product,
         date: format(new Date(), "'dia' dd 'de' MMMM', às' H:mm'h", {
           locale: pt,

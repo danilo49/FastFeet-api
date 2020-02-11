@@ -1,8 +1,16 @@
-<strong>Olá, {{ deliveryman }}</strong>
+<strong>Olá, {{ deliveryman }}!!!</strong>
 <p>Uma nova encomenda está disponível para entrega, confira os detalhes abaixo:</p>
 <p>
-  <strong>Produto: </strong> {{ product }} <br />
-  <strong>Data/hora: </strong> {{ date }} <br />
+  <strong>Destinatário: </strong> {{ recipient }} <br />
+  <strong>Produto: </strong> {{ product }} <br /><br />
+
+  <strong><u>Endereço da entrega</u></strong> <br />
+  <strong>Rua:</strong>{{ street }} <strong>Número:</strong> {{number}} <br />
+  <strong>Complemento: </strong> {{ complement }}<br />
+  <strong>Bairro: </strong> {{ neighborhood}}  <strong>CEP:</strong> {{ zipcode }} <br />
+  <strong>Cidade: </strong> {{city }} <strong>UF: </strong> {{state}}<br /><br />
+
+  <strong>Disponível a partir de:</strong> {{ date }} <br />
   <br />
   <small>
     Aguardamos a retirada da encomenda.

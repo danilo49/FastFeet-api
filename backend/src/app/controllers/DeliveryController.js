@@ -59,6 +59,7 @@ class DeliveryController {
 
     await Queue.add(OrderAvailableMail.key, {
       deliverymanExists,
+      recipientExists,
       product,
     });
 
