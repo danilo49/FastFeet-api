@@ -26,7 +26,7 @@ class DeliveryController {
       include: [
         {
           model: File,
-          as: 'avatar',
+          as: 'signature',
           attributes: ['name', 'path', 'url'],
         },
       ],

@@ -1,4 +1,4 @@
-import Op from 'sequelize';
+// import Op from 'sequelize';
 import Problem from '../models/Problem';
 import Delivery from '../models/Delivery';
 import CancellationMail from '../jobs/CancellationMail';
@@ -8,38 +8,27 @@ import Queue from '../../lib/Queue';
 
 class ProblemAdminController {
   async index(req, res) {
-    const { page } = req.query;
-    const problems = await Problem.findAll();
-    const deliveriesWithProblems = await Delivery.findAll({
-      where: { id: problems.delivery_id, canceled_at: null },
-      order: ['date'],
-      attributes: [
-        'id',
-        'recipient_id',
-        'deliveryman_id',
-        'signature_id',
-        'product',
-        'start_date',
-        'end_date',
-      ],
-      limit: 20,
-      offset: (page - 1) * 20,
+    const deliveries = await Delivery.findAll();
+    const deliveriesWithProblem = await Problem.findAll({
+      where: { delivery_id: deliveries.id },
       include: [
         {
-          model: Problem,
-          as: 'delivery_problems',
-          attributes: ['delivery_id', 'description'],
-          /* include: [
-            {
-              model: File,
-              as: 'signature',
-              attributes: ['id', 'path', 'url'],
-            },
-          ], */
+          model: Delivery,
+          as: 'delivery',
+          attributes: [
+            'id',
+            'recipient_id',
+            'delivery_id',
+            'signature_id',
+            'product',
+            'start_date',
+            'end_date',
+          ],
         },
       ],
     });
-    return res.json({ deliveriesWithProblems });
+
+    return res.json(deliveriesWithProblem);
   }
 
   async delete(req, res) {

@@ -8,6 +8,7 @@ import RecipientController from './app/controllers/RecipientController';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import DeliveryController from './app/controllers/DeliveryController';
 import FileController from './app/controllers/FileController';
+import FileSignatureController from './app/controllers/FileSignatureController';
 import DeliverieController from './app/controllers/DeliverieController';
 import CompletedDeliveriesController from './app/controllers/CompletedDeliveriesController';
 import ProblemController from './app/controllers/ProblemController';
@@ -43,6 +44,7 @@ routes.post('/recipients', RecipientController.store);
 routes.put('/recipients/:id', RecipientController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
+routes.post('/files', upload.single('file'), FileSignatureController.store);
 
 routes.get('/deliveryman', DeliverymanController.index);
 routes.post('/deliveryman', DeliverymanController.store);
