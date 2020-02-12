@@ -43,7 +43,7 @@ class ProblemController {
     });
     if (!deliveryExists) {
       return res.status(400).json({
-        error: `Delivery or delivery does not exist or you are trying to access another deliveryman's delivery!`,
+        error: `Delivery man or delivery doesn’t exist or you are trying acess  delivery another deliveryman’s`,
       });
     }
 
@@ -56,10 +56,6 @@ class ProblemController {
       delivery_id,
       description,
     });
-  }
-
-  async delete(req, res) {
-    return res.json('ok');
   }
 }
 

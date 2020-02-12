@@ -1,16 +1,35 @@
 import * as Yup from 'yup';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import Delivery from '../models/Delivery';
 import Deliveryman from '../models/Deliveryman';
+import File from '../models/File';
 import Recipient from '../models/Recipient';
 
 import OrderAvailableMail from '../jobs/OrderAvailableMail';
-
+import Notification from '../schemas/Notification';
 import Queue from '../../lib/Queue';
 
 class DeliveryController {
   async index(req, res) {
     const deliverys = await Delivery.findAll({
       where: { canceled_at: null },
+      attributes: [
+        'id',
+        'recipient_id',
+        'deliveryman_id',
+        'signature_id',
+        'product',
+        'start_date',
+        'end_date',
+      ],
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
     });
     return res.json(deliverys);
   }
@@ -57,10 +76,29 @@ class DeliveryController {
       end_date,
     } = await Delivery.create(req.body);
 
+    const date = new Date();
+
+    /**
+     * Notify deliveryman
+     */
+
+    const formattedDate = format(date, "dd 'de' MMMM', às' H:mm'h", {
+      locale: pt,
+    });
+
+    await Notification.create({
+      content: `Olá ${deliverymanExists.name}!!!\nNova encomenda disponível para retirada.\nData/hora: ${formattedDate}`,
+      user: req.body.deliveryman_id,
+    });
+
+    /**
+     * E-mail deliveryman
+     */
     await Queue.add(OrderAvailableMail.key, {
       deliverymanExists,
       recipientExists,
       product,
+      date,
     });
 
     return res.json({

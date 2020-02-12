@@ -11,6 +11,7 @@ import FileController from './app/controllers/FileController';
 import DeliverieController from './app/controllers/DeliverieController';
 import CompletedDeliveriesController from './app/controllers/CompletedDeliveriesController';
 import ProblemController from './app/controllers/ProblemController';
+import ProblemAdminController from './app/controllers/ProblemAdminController';
 
 import authMiddleware from './app/middlewares/auth';
 import authAdmin from './app/middlewares/authAdmin';
@@ -30,7 +31,6 @@ routes.get(
 routes.get('/delivery/:deliveryId/problems', ProblemController.index);
 routes.post('/delivery/:deliverymanId/problems', ProblemController.store);
 // routes.put('/delivery/:deliverymanId/problems', ProblemController.update);
-routes.delete('/problem/:problemId/cancel-delivery', ProblemController.delete);
 
 routes.use(authMiddleware); // Middleware GLOBAL the routes below this line pass through the middleware
 // routes.put('/users', authMiddleware, UserController.update); Middleware LOCAL
@@ -53,6 +53,9 @@ routes.get('/deliverys', DeliveryController.index);
 routes.post('/deliverys', DeliveryController.store);
 routes.put('/deliverys/:id', DeliveryController.update);
 routes.delete('/deliverys/:id', DeliveryController.delete);
+
+routes.get('/deliveriesProblems', ProblemAdminController.index);
+routes.delete('/problem/:id/cancel-delivery', ProblemAdminController.delete);
 // ----------------------------------------
 export default routes;
 

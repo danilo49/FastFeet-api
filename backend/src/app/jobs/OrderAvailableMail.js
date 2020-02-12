@@ -1,5 +1,5 @@
 import pt from 'date-fns/locale/pt';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import Mail from '../../lib/Mail';
 
 class OrderAvailableMail {
@@ -8,7 +8,7 @@ class OrderAvailableMail {
   }
 
   async handle({ data }) {
-    const { deliverymanExists, recipientExists, product } = data;
+    const { deliverymanExists, recipientExists, product, date } = data;
     // console.log(`${deliveryman.name} produto ${product}`);
 
     await Mail.sendMail({
@@ -26,7 +26,7 @@ class OrderAvailableMail {
         city: recipientExists.city,
         state: recipientExists.state,
         product,
-        date: format(new Date(), "'dia' dd 'de' MMMM', às' H:mm'h", {
+        date: format(parseISO(date), "'dia' dd 'de' MMMM', às' H:mm'h", {
           locale: pt,
         }),
       },
