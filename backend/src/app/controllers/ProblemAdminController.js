@@ -9,14 +9,12 @@ import Queue from '../../lib/Queue';
 class ProblemAdminController {
   async index(req, res) {
     const deliveries = await Delivery.findAll();
-    const problems = await Problem.findAll();
-    console.log(problems.delivery_id);
     const deliveriesWithProblem = await Problem.findAll({
       where: { delivery_id: deliveries.id },
+      attributes: ['id', 'delivery_id', 'description'],
       include: [
         {
           model: Delivery,
-          as: 'delivery',
           attributes: [
             'id',
             'recipient_id',

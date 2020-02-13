@@ -37,8 +37,8 @@ class ProblemController {
 
     const deliveryExists = await Delivery.findOne({
       where: {
-        id: req.body.delivery_id,
         deliveryman_id: req.params.deliverymanId,
+        id: req.body.delivery_id,
       },
     });
     if (!deliveryExists) {

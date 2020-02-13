@@ -16,7 +16,7 @@ class Problem extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Delivery, { foreignKey: 'id', as: 'delivery' });
+    this.hasMany(models.Delivery, { foreignKey: 'id' });
   }
 }
 export default Problem;
