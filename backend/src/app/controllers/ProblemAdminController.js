@@ -9,6 +9,8 @@ import Queue from '../../lib/Queue';
 class ProblemAdminController {
   async index(req, res) {
     const deliveries = await Delivery.findAll();
+    const problems = await Problem.findAll();
+    console.log(problems.delivery_id);
     const deliveriesWithProblem = await Problem.findAll({
       where: { delivery_id: deliveries.id },
       include: [
@@ -18,7 +20,7 @@ class ProblemAdminController {
           attributes: [
             'id',
             'recipient_id',
-            'delivery_id',
+            'deliveryman_id',
             'signature_id',
             'product',
             'start_date',

@@ -25,7 +25,7 @@ class Delivery extends Model {
       foreignKey: 'id',
       as: 'signature',
     });
-    this.belongsTo(models.Deliveryman, {
+    this.hasMany(models.Deliveryman, {
       foreignKey: 'id',
       as: 'deliveryman',
     });
