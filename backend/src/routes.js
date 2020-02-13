@@ -11,7 +11,7 @@ import FileController from './app/controllers/FileController';
 import FileSignatureController from './app/controllers/FileSignatureController';
 import DeliverieController from './app/controllers/DeliverieController';
 import CompletedDeliveriesController from './app/controllers/CompletedDeliveriesController';
-import ProblemController from './app/controllers/ProblemController';
+import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import ProblemAdminController from './app/controllers/ProblemAdminController';
 
 import authMiddleware from './app/middlewares/auth';
@@ -29,8 +29,11 @@ routes.get(
   CompletedDeliveriesController.index
 );
 
-routes.get('/delivery/:deliveryId/problems', ProblemController.index);
-routes.post('/delivery/:deliverymanId/problems', ProblemController.store);
+routes.get('/delivery/:deliveryId/problems', DeliveryProblemController.show);
+routes.post(
+  '/delivery/:deliverymanId/problems',
+  DeliveryProblemController.store
+);
 // routes.put('/delivery/:deliverymanId/problems', ProblemController.update);
 
 routes.use(authMiddleware); // Middleware GLOBAL the routes below this line pass through the middleware

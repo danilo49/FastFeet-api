@@ -18,32 +18,34 @@ class DeliverymanController {
   }
 
   async store(req, res) {
+    /**
+     * Validate body
+     */
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string()
-        .email()
-        .required(),
+        .required()
+        .email(),
+      avatar_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Validation error' });
     }
 
+    /**
+     * Check if email is alredy registered
+     */
     const deliverymanExists = await Deliveryman.findOne({
       where: { email: req.body.email },
     });
-
     if (deliverymanExists) {
-      return res.status(400).json({ error: 'Deliveryman already exists.' });
+      return res.status(400).json({ error: 'Email already registered' });
     }
 
-    const { id, name, email } = await Deliveryman.create(req.body);
+    const deliveryman = await Deliveryman.create(req.body);
 
-    return res.json({
-      id,
-      name,
-      email,
-    });
+    return res.status(200).json(deliveryman);
   }
 
   async update(req, res) {

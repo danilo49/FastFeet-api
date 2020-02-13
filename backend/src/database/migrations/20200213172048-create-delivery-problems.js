@@ -1,28 +1,28 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('files', {
+    return queryInterface.createTable('delivery_problems', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
+      delivery_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'deliveries', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
         allowNull: false,
       },
-      path: {
+      description: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       created_at: {
-        // valores que sequelize preenche automatico no Sequelize
         type: Sequelize.DATE,
         allowNull: false,
       },
       updated_at: {
-        // valores que sequelize preenche automatico no Sequelize
         type: Sequelize.DATE,
         allowNull: false,
       },
@@ -30,6 +30,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('files');
+    return queryInterface.dropTable('delivery_problems');
   },
 };

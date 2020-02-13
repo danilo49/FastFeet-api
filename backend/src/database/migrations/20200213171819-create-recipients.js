@@ -28,11 +28,11 @@ module.exports = {
         allowNull: false,
       },
       zipcode: {
-        type: Sequelize.STRING,
+        type: Sequelize.CHAR(8),
         allowNull: false,
       },
       state: {
-        type: Sequelize.STRING,
+        type: Sequelize.CHAR(2),
         allowNull: false,
       },
       complement: {
@@ -40,12 +40,10 @@ module.exports = {
         allowNull: true,
       },
       created_at: {
-        // valores que sequelize preenche automatico no Sequelize
         type: Sequelize.DATE,
         allowNull: false,
       },
       updated_at: {
-        // valores que sequelize preenche automatico no Sequelize
         type: Sequelize.DATE,
         allowNull: false,
       },

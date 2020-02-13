@@ -1,16 +1,19 @@
 import * as Yup from 'yup';
-import Problem from '../models/Problem';
+import DeliveryProblem from '../models/DeliveryProblem';
 import Delivery from '../models/Delivery';
 
-class ProblemController {
-  async index(req, res) {
+class DeliveryProblemController {
+  async show(req, res) {
+    const { page = 1 } = req.query;
     const delivery = await Delivery.findByPk(req.params.deliveryId);
     // delivery/:deliveryId/problems
     if (!delivery) {
       return res.status(400).json({ error: 'Delivery does not exists.' });
     }
 
-    const problems = await Problem.findAll({
+    const problems = await DeliveryProblem.findAll({
+      limit: 20,
+      offset: (page - 1) * 20,
       where: {
         delivery_id: delivery.id,
       },
@@ -49,7 +52,9 @@ class ProblemController {
 
     // console.log(JSON.stringify(delivery));
 
-    const { id, delivery_id, description } = await Problem.create(req.body);
+    const { id, delivery_id, description } = await DeliveryProblem.create(
+      req.body
+    );
 
     return res.json({
       id,
@@ -59,4 +64,4 @@ class ProblemController {
   }
 }
 
-export default new ProblemController();
+export default new DeliveryProblemController();

@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('deliverymen', {
+    return queryInterface.createTable('deliverymans', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -17,12 +17,10 @@ module.exports = {
         unique: true,
       },
       created_at: {
-        // valores que sequelize preenche automatico no Sequelize
         type: Sequelize.DATE,
         allowNull: false,
       },
       updated_at: {
-        // valores que sequelize preenche automatico no Sequelize
         type: Sequelize.DATE,
         allowNull: false,
       },
@@ -30,6 +28,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('deliverymen');
+    return queryInterface.dropTable('deliverymans');
   },
 };

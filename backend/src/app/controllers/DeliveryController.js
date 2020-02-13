@@ -12,7 +12,10 @@ import Queue from '../../lib/Queue';
 
 class DeliveryController {
   async index(req, res) {
+    const { page = 1 } = req.query;
     const deliverys = await Delivery.findAll({
+      limit: 20,
+      offset: (page - 1) * 20,
       where: { canceled_at: null },
       attributes: [
         'id',
@@ -28,6 +31,11 @@ class DeliveryController {
           model: File,
           as: 'signature',
           attributes: ['name', 'path', 'url'],
+        },
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: ['name', 'street', 'number'],
         },
       ],
     });
@@ -78,17 +86,8 @@ class DeliveryController {
 
     const date = new Date();
 
-    /**
-     * Notify deliveryman
-     */
-
     const formattedDate = format(date, "dd 'de' MMMM', às' H:mm'h", {
       locale: pt,
-    });
-
-    await Notification.create({
-      content: `Olá ${deliverymanExists.name}!!!\nNova encomenda disponível para retirada.\nData/hora: ${formattedDate}`,
-      user: req.body.deliveryman_id,
     });
 
     /**
@@ -99,6 +98,15 @@ class DeliveryController {
       recipientExists,
       product,
       date,
+    });
+
+    /**
+     * Notify deliveryman
+     */
+
+    await Notification.create({
+      content: `Olá ${deliverymanExists.name}!!!\nNova encomenda disponível para retirada.\nData/hora: ${formattedDate}`,
+      user: req.body.deliveryman_id,
     });
 
     return res.json({

@@ -1,22 +1,25 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Problem extends Model {
+class DeliveryProblems extends Model {
   static init(sequelize) {
     super.init(
       {
-        // delivery_id: Sequelize.INTEGER,
         description: Sequelize.STRING,
       },
       {
         sequelize,
-        tableName: 'delivery_problems',
       }
     );
+
     return this;
   }
 
   static associate(models) {
-    this.hasMany(models.Delivery, { foreignKey: 'id' });
+    this.belongsTo(models.Delivery, {
+      foreignKey: 'delivery_id',
+      as: 'delivery',
+    });
   }
 }
-export default Problem;
+
+export default DeliveryProblems;

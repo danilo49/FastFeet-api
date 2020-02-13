@@ -9,9 +9,9 @@ class Deliveryman extends Model {
       },
       {
         sequelize,
-        tableName: 'deliverymen',
       }
     );
+
     return this;
   }
 
@@ -19,4 +19,5 @@ class Deliveryman extends Model {
     this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
   }
 }
+
 export default Deliveryman;

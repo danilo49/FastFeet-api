@@ -1,5 +1,7 @@
 // import Op from 'sequelize';
-import Problem from '../models/Problem';
+import DeliveryProblem from '../models/DeliveryProblem';
+import Recipient from '../models/Recipient';
+import File from '../models/File';
 import Delivery from '../models/Delivery';
 import CancellationMail from '../jobs/CancellationMail';
 import Deliveryman from '../models/Deliveryman';
@@ -8,31 +10,58 @@ import Queue from '../../lib/Queue';
 
 class ProblemAdminController {
   async index(req, res) {
-    const deliveries = await Delivery.findAll();
-    const deliveriesWithProblem = await Problem.findAll({
-      where: { delivery_id: deliveries.id },
-      attributes: ['id', 'delivery_id', 'description'],
+    const { page = 1 } = req.query;
+    const problems = await DeliveryProblem.findAll({
+      attributes: ['delivery_id'],
+    });
+    const idsWithProblems = problems.map(p => p.delivery_id);
+    const deliveries = await Delivery.findAll({
+      limit: 20,
+      offset: (page - 1) * 20,
+      where: {
+        id: idsWithProblems,
+      },
+      attributes: ['id', 'product', 'start_date', 'end_date'],
       include: [
         {
-          model: Delivery,
+          model: Recipient,
+          as: 'recipient',
           attributes: [
             'id',
-            'recipient_id',
-            'deliveryman_id',
-            'signature_id',
-            'product',
-            'start_date',
-            'end_date',
+            'name',
+            'street',
+            'number',
+            'zipcode',
+            'complement',
+            'state',
+            'city',
           ],
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'signature',
+          attributes: ['name', 'path', 'url'],
         },
       ],
     });
 
-    return res.json(deliveriesWithProblem);
+    return res.status(200).json(deliveries);
   }
 
   async delete(req, res) {
-    const problem = await Problem.findByPk(req.params.id);
+    const problem = await DeliveryProblem.findByPk(req.params.id);
     if (!problem) {
       return res.status(400).json('Problem does not exist');
     }
