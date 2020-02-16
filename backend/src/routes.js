@@ -9,7 +9,6 @@ import DeliverymanController from './app/controllers/DeliverymanController';
 import DeliveryController from './app/controllers/DeliveryController';
 import FileController from './app/controllers/FileController';
 import FileSignatureController from './app/controllers/FileSignatureController';
-import DeliverieController from './app/controllers/DeliverieController';
 import CompletedDeliveriesController from './app/controllers/CompletedDeliveriesController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import ProblemAdminController from './app/controllers/ProblemAdminController';
@@ -23,7 +22,7 @@ const upload = multer(multerConfig);
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
-routes.get('/deliveryman/:deliverymanId/deliveries', DeliverieController.index);
+routes.get('/deliveryman/:deliverymanId/deliveries', DeliveryController.show);
 routes.get(
   '/deliveryman/:deliverymanId/deliveriesCompleted',
   CompletedDeliveriesController.index
