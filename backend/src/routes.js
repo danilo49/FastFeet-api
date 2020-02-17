@@ -12,6 +12,7 @@ import FileSignatureController from './app/controllers/FileSignatureController';
 import CompletedDeliveriesController from './app/controllers/CompletedDeliveriesController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import ProblemAdminController from './app/controllers/ProblemAdminController';
+import WithdrawalController from './app/controllers/WithdrawalController';
 
 import authMiddleware from './app/middlewares/auth';
 import authAdmin from './app/middlewares/authAdmin';
@@ -33,10 +34,11 @@ routes.post(
   '/delivery/:deliverymanId/problems',
   DeliveryProblemController.store
 );
-// routes.put('/delivery/:deliverymanId/problems', ProblemController.update);
+
+routes.post('/withdrawal', WithdrawalController.store);
+routes.put('/withdrawal/:deliveryId', WithdrawalController.update);
 
 routes.use(authMiddleware); // Middleware GLOBAL the routes below this line pass through the middleware
-// routes.put('/users', authMiddleware, UserController.update); Middleware LOCAL
 routes.put('/users', UserController.update);
 
 // -------- Administrator Features --------
@@ -60,6 +62,7 @@ routes.delete('/deliverys/:id', DeliveryController.delete);
 
 routes.get('/deliveriesProblems', ProblemAdminController.index);
 routes.delete('/problem/:id/cancel-delivery', ProblemAdminController.delete);
+
 // ----------------------------------------
 export default routes;
 
