@@ -8,8 +8,28 @@
   A carrier management application that allows tracking of orders.
 </h4>
 
+  <p align="center">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/danilo49/FastFeet-api.svg">
+  
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/danilo49/FastFeet-api.svg">
+ 
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/danilo49/FastFeet-api.svg">
+  <a href="https://github.com/danilo49/FastFeet-api/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/danilo49/FastFeet-api.svg">
+  </a>
+  
+  <a href="https://github.com/danilo49/FastFeet-apir/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/danilo49/FastFeet-api.svg">
+  </a>
+  
+  <a href="https://github.com/danilo49/FastFeet-api/blob/master/LICENSE">
+  <img alt="GitHub" src="https://img.shields.io/badge/license-MIT-GREEN">   
+  </a>
+</p>
+
 <p align="center">
   <a href="#rocket-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-how-to-use">How To Use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-license">License</a>
 </p>
 
@@ -40,8 +60,27 @@ This project was developed at the [RocketSeat GoStack Bootcamp](https://rocketse
 -  [DotEnv](https://www.npmjs.com/package/dotenv)
 -  [VS Code][vc] with [ESLint][vceslint]
 
+## :information_source: How To Use
+
+To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js v12.16][nodejs] or higher + [Yarn v1.22][yarn] or higher installed on your computer 
+
+```bash
+# Clone this repository
+$ git clone https://github.com/danilo49/FastFeet-api
+
+# Go into the repository
+$ cd FastFeet-api
+
+# Install dependencies
+$ yarn install
+
+# Run the app
+$ yarn start
+```
+
+
 ## :memo: License
-This project is under the MIT license. See the [LICENSE](https://github.com/danilo49/FastFeet/blob/master/backend/LICENSE) for more information.
+This project is under the MIT license. See the [LICENSE](https://github.com/danilo49/FastFeet-api/blob/master/LICENSE) for more information.
 
 ---
 
